@@ -5,89 +5,18 @@ import {
   ArrowRight,
   BarChart3,
   Clock,
-  Menu,
   Package,
   ShieldCheck,
-  X,
   Zap,
 } from 'lucide-react';
 import Link from 'next/link';
-import { useState } from 'react';
+
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 
 export default function HomePage() {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
   return (
     <div className='min-h-screen bg-background'>
-      {/* Navigation - Added mobile hamburger menu and improved responsive layout */}
-      <nav className='border-b border-border bg-card sticky top-0 z-50'>
-        <div className='max-w-7xl mx-auto px-4 sm:px-6 py-4'>
-          <div className='flex items-center justify-between'>
-            {/* Logo */}
-            <div className='flex items-center gap-2 shrink-0'>
-              <div className='w-8 h-8 bg-primary rounded-lg flex items-center justify-center'>
-                <Package className='w-5 h-5 text-primary-foreground' />
-              </div>
-              <span className='text-lg sm:text-xl font-bold text-foreground'>
-                easystock
-              </span>
-            </div>
-
-            {/* Desktop Navigation */}
-            <div className='hidden md:flex items-center gap-6'>
-              <Button variant='ghost' asChild className='text-sm'>
-                <Link href='#features'>Features</Link>
-              </Button>
-              <Button variant='ghost' asChild className='text-sm'>
-                <Link href='#benefits'>Benefits</Link>
-              </Button>
-              <Button asChild size='sm'>
-                <Link href='/dashboard'>Get Started</Link>
-              </Button>
-            </div>
-
-            {/* Mobile Menu Button */}
-            <button
-              type='button'
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className='md:hidden p-2 hover:bg-muted rounded-lg transition-colors'
-              aria-label='Toggle menu'
-            >
-              {mobileMenuOpen ? (
-                <X className='w-6 h-6' />
-              ) : (
-                <Menu className='w-6 h-6' />
-              )}
-            </button>
-          </div>
-
-          {/* Mobile Navigation Menu */}
-          {mobileMenuOpen && (
-            <div className='md:hidden border-t border-border mt-4 pt-4 space-y-3'>
-              <Button
-                variant='ghost'
-                asChild
-                className='w-full justify-start text-sm'
-              >
-                <Link href='#features'>Features</Link>
-              </Button>
-              <Button
-                variant='ghost'
-                asChild
-                className='w-full justify-start text-sm'
-              >
-                <Link href='#benefits'>Benefits</Link>
-              </Button>
-              <Button asChild className='w-full text-sm'>
-                <Link href='/dashboard'>Get Started</Link>
-              </Button>
-            </div>
-          )}
-        </div>
-      </nav>
-
       {/* Hero Section - Improved mobile layout and spacing */}
       <section className='max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-20 lg:py-24'>
         <div className='grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center'>
