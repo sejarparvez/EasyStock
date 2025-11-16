@@ -12,14 +12,14 @@ export default function Navbar() {
       <div className='max-w-7xl mx-auto px-4 sm:px-6 py-4'>
         <div className='flex items-center justify-between'>
           {/* Logo */}
-          <div className='flex items-center gap-2 shrink-0'>
+          <Link href='/' className='flex items-center gap-2 shrink-0'>
             <div className='w-8 h-8 bg-primary rounded-lg flex items-center justify-center'>
               <Package className='w-5 h-5 text-primary-foreground' />
             </div>
             <span className='text-lg sm:text-xl font-bold text-foreground'>
               EasyStock
             </span>
-          </div>
+          </Link>
 
           {/* Desktop Navigation */}
           <div className='hidden md:flex items-center gap-6'>
