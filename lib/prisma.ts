@@ -1,23 +1,7 @@
-import { PrismaClient } from './generated/prisma/client';
+import { PrismaClient } from '@/lib/generated/prisma';
 
-const prismaClientSingleton = () => {
-  return new PrismaClient({
-    log:
-      process.env.NODE_ENV === 'development'
-        ? ['query', 'error', 'warn']
-        : ['error'],
-  });
-};
+const globalForPrisma = global as unknown as { prisma: PrismaClient };
 
-// biome-ignore lint/suspicious/noShadowRestrictedNames: error
-declare const globalThis: {
-  prismaGlobal: ReturnType<typeof prismaClientSingleton>;
-} & typeof global;
+export const prisma = globalForPrisma.prisma || new PrismaClient();
 
-const db = globalThis.prismaGlobal ?? prismaClientSingleton();
-
-export default db;
-
-if (process.env.NODE_ENV !== 'production') {
-  globalThis.prismaGlobal = db;
-}
+if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma;
