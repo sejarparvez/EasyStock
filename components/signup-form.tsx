@@ -57,7 +57,7 @@ export function SignupForm({
     setIsLoading(true);
 
     try {
-      const { data, error } = await signUp.email({
+      const { error } = await signUp.email({
         email: values.email,
         password: values.password,
         name: values.name,
@@ -94,9 +94,9 @@ export function SignupForm({
       reset();
 
       setTimeout(() => {
-        router.push('/dashboard');
+        router.push('/login');
       }, 1500);
-    } catch (err: any) {
+    } catch (err) {
       toast.error('Unexpected error', {
         description: 'An unexpected error occurred. Please try again.',
       });
@@ -111,7 +111,7 @@ export function SignupForm({
     try {
       await signIn.social({
         provider,
-        callbackURL: '/dashboard',
+        callbackURL: '/login',
       });
     } catch (err) {
       toast.error(
@@ -120,6 +120,7 @@ export function SignupForm({
           description: `Unable to sign up with ${provider}. Please try again.`,
         },
       );
+      console.error(`${provider} signup error:`, err);
       setIsLoading(false);
     }
   }
