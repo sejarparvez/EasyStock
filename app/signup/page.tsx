@@ -1,7 +1,7 @@
-import { SignupForm } from '@/components/signup-form';
-import { auth } from '@/lib/auth';
 import { headers } from 'next/headers';
 import { redirect } from 'next/navigation';
+import { SignupForm } from '@/components/signup-form';
+import { auth } from '@/lib/auth';
 
 export default async function SignupPage() {
   // 1. Get the session information

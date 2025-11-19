@@ -1,28 +1,28 @@
 'use client';
 
-import { cn } from '@/lib/utils';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { Eye, EyeOff } from 'lucide-react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { toast } from 'sonner';
+import type * as z from 'zod';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import {
   Field,
   FieldDescription,
+  FieldError,
   FieldGroup,
   FieldLabel,
   FieldSeparator,
-  FieldError,
 } from '@/components/ui/field';
 import { Input } from '@/components/ui/input';
-import Link from 'next/link';
-import Image from 'next/image';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
-import { toast } from 'sonner';
-import { useRouter } from 'next/navigation';
-import { useState } from 'react';
-import { Eye, EyeOff } from 'lucide-react';
-import type * as z from 'zod';
-import { signupSchema } from '@/lib/schemas/auth';
 import { signIn, signUp } from '@/lib/auth-client';
+import { signupSchema } from '@/lib/schemas/auth';
+import { cn } from '@/lib/utils';
 
 type SignupFormValues = z.infer<typeof signupSchema>;
 
