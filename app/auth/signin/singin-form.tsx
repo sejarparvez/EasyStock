@@ -256,7 +256,7 @@ export function LoginForm({
               <FieldDescription className='text-center'>
                 Don&apos;t have an account?{' '}
                 <Link
-                  href='/signup'
+                  href='/auth/signup'
                   className='font-medium underline underline-offset-4 hover:text-primary'
                 >
                   Sign up

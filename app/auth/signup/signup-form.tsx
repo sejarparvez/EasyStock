@@ -88,13 +88,13 @@ export function SignupForm({
       }
 
       toast.success('Account created successfully!', {
-        description: 'Welcome to easystock. Redirecting you now...',
+        description: 'Welcome to Easy Stock. Redirecting you now...',
       });
 
       reset();
 
       setTimeout(() => {
-        router.push('/login');
+        router.push('/auth/signin');
       }, 1500);
     } catch (err) {
       toast.error('Unexpected error', {
@@ -111,7 +111,7 @@ export function SignupForm({
     try {
       await signIn.social({
         provider,
-        callbackURL: '/login',
+        callbackURL: '/dashboard',
       });
     } catch (err) {
       toast.error(
@@ -243,7 +243,7 @@ export function SignupForm({
                 </div>
 
                 <FieldDescription>
-                  Must be at least 8 characters with uppercase, lowercase, and a
+                  Must be at least 6 characters with uppercase, lowercase, and a
                   number.
                 </FieldDescription>
 

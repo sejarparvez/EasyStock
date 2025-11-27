@@ -39,7 +39,7 @@ export default function UserDropDown() {
   if (!session?.user) {
     return (
       <div className='pl-2'>
-        <Link href='/login'>
+        <Link href='/auth/signin'>
           <Button size='sm'>Get Started</Button>
         </Link>
       </div>
