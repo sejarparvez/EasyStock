@@ -1,26 +1,28 @@
 import { headers } from 'next/headers';
 import { redirect } from 'next/navigation';
-import { LoginForm } from '@/components/login-form';
+import { SignupForm } from '@/app/auth/signup/signup-form';
 import { auth } from '@/lib/auth';
 
-export default async function LoginPage() {
+export default async function SignupPage() {
   // 1. Get the session information
   const session = await auth.api.getSession({
     headers: await headers(),
   });
 
   // 2. Conditional Redirect
-  // If a session exists (user is logged in), redirect them to the dashboard.
+  // If a session exists (meaning the user is logged in), redirect them
+  // to the dashboard page or another appropriate post-login page.
   if (session) {
-    // Redirect to the post-login destination
+    // Specify the path to your dashboard or home page
     redirect('/dashboard');
   }
 
-  // 3. Render the Login Form if no session exists
+  // 3. Render the Signup Form if no session exists
   return (
     <div className='bg-muted flex min-h-svh flex-col items-center justify-center p-6 md:p-10'>
       <div className='w-full max-w-sm md:max-w-4xl'>
-        <LoginForm />
+        {/* The SignupForm component remains here */}
+        <SignupForm />
       </div>
     </div>
   );
