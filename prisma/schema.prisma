@@ -41,7 +41,7 @@ model User {
   deletedAt DateTime?
 
   imageId        String?   @unique
-  image          Image?    @relation(fields: [imageId], references: [id], onDelete: SetNull)
+  image          String?
 
   sessions       Session[]
   accounts       Account[]
@@ -187,9 +187,7 @@ model Image {
   height       Int?
   format       String?
   resourceType String?
-  size         Int? // File size in bytes
-
-  user                 User?
+  size         Int? 
   productImages        ProductImage[]
   productVariantImages ProductVariantImage[]
   categories           Category[]
