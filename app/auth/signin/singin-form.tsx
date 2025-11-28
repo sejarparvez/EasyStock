@@ -1,7 +1,7 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Eye, EyeOff } from 'lucide-react';
+import { Eye, EyeOff, Info } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -38,6 +38,7 @@ export function LoginForm({
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [showVerificationLink, setShowVerificationLink] = useState(false);
 
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
@@ -84,6 +85,11 @@ export function LoginForm({
             type: 'manual',
             message: 'No account found with this email',
           });
+        } else if (error.status === 403) {
+          toast.error('Email Not Verified', {
+            description: 'Please verify your email address before logging in.',
+          });
+          setShowVerificationLink(true);
         } else {
           toast.error('Login failed', {
             description:
@@ -162,7 +168,7 @@ export function LoginForm({
                 <div className='flex items-center'>
                   <FieldLabel htmlFor='password'>Password</FieldLabel>
                   <Link
-                    href='/forgot-password'
+                    href='/auth/forgot-password'
                     className='ml-auto text-sm underline-offset-2 hover:underline'
                     tabIndex={-1}
                   >
@@ -201,6 +207,21 @@ export function LoginForm({
                   <FieldError>{errors.password.message}</FieldError>
                 )}
               </Field>
+
+              {showVerificationLink && (
+                <div className='bg-blue-50 dark:bg-blue-950/20 border border-blue-200 dark:border-blue-900/50 rounded-lg p-4 flex gap-3 items-baseline'>
+                  <Info className='h-5 w-5 text-blue-600 dark:text-blue-400 shrink-0 mt-0.5' />
+                  <span className='text-xs text-blue-700 dark:text-blue-300 mt-1'>
+                    Don't have the verification link?
+                  </span>
+                  <Link
+                    href='/auth/verify?error=lost-verification-email'
+                    className='text-primary font-bold text-sm whitespace-nowrap shrink-0'
+                  >
+                    Send Again
+                  </Link>
+                </div>
+              )}
 
               {/* Submit Button */}
               <Field>

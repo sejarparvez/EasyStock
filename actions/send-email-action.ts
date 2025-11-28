@@ -78,7 +78,7 @@ export async function sendEmailAction({
               <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
                   <tr>
                       <td align="center" style="padding: 0 0 20px 0;">
-                          <h2 style="margin:0; color:#343a40;">BetterAuthy</h2> 
+                          <h2 style="margin:0; color:#343a40;">Easy Stock</h2> 
                           </td>
                   </tr>
 

@@ -35,7 +35,6 @@ export function SendVerificationEmailForm() {
       return;
     }
 
-    // --- FUNCTIONALITY FROM SECOND COMPONENT ---
     await sendVerificationEmail({
       email,
       callbackURL: '/auth/verify',

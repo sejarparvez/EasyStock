@@ -1,7 +1,6 @@
 import { ChevronLeft, Mail } from 'lucide-react';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
-import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 import { SendVerificationEmailForm } from './send-verification-email-form';
 
@@ -13,7 +12,6 @@ export default async function Page({ searchParams }: PageProps) {
   const error = (await searchParams).error;
 
   if (!error) {
-    toast.success('Email successfully verified');
     redirect('/dashboard');
   }
 

@@ -93,9 +93,7 @@ export function SignupForm({
 
       reset();
 
-      setTimeout(() => {
-        router.push('/auth/signin');
-      }, 1500);
+      router.push('/auth/verify/pending');
     } catch (err) {
       toast.error('Unexpected error', {
         description: 'An unexpected error occurred. Please try again.',
