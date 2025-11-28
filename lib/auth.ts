@@ -1,9 +1,42 @@
 import { betterAuth } from 'better-auth';
 import { prismaAdapter } from 'better-auth/adapters/prisma';
 import { sendEmailAction } from '@/actions/send-email-action';
+import { DeleteImage } from '@/cloudinary/delete-image';
 import { prisma } from './prisma';
 
 export const auth = betterAuth({
+  databaseHooks: {
+    user: {
+      update: {
+        before: async (data, ctx) => {
+          // If image is a special string, parse it into image and imageId
+          if (typeof data.image === 'string' && data.image.includes('|')) {
+            const [imageUrl, imageId] = data.image.split('|');
+            data.image = imageUrl;
+            data.imageId = imageId;
+          }
+          if (data.image || data.imageId) {
+            if (ctx?.context?.session) {
+              const session = ctx.context.session;
+              if (session?.user.userId) {
+                const user = await prisma.user.findUnique({
+                  where: { id: session.user.userId },
+                  select: { imageId: true },
+                });
+
+                if (user?.imageId) {
+                  DeleteImage(user.imageId).catch((err) => {
+                    console.error('Failed to delete old profile image', err);
+                  });
+                }
+              }
+            }
+          }
+          return { data };
+        },
+      },
+    },
+  },
   database: prismaAdapter(prisma, {
     provider: 'postgresql',
   }),

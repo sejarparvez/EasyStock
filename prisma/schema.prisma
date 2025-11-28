@@ -40,8 +40,8 @@ model User {
   // Soft delete
   deletedAt DateTime?
 
-  imageId        String?   @unique
-  image          String?
+  imageId String? @unique
+  image   String?
 
   sessions       Session[]
   accounts       Account[]
@@ -178,16 +178,16 @@ model Notification {
 // ============================================
 
 model Image {
-  id           String   @id @default(cuid())
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
-  url          String
-  publicId     String   @unique
-  width        Int?
-  height       Int?
-  format       String?
-  resourceType String?
-  size         Int? 
+  id                   String                @id @default(cuid())
+  createdAt            DateTime              @default(now())
+  updatedAt            DateTime              @updatedAt
+  url                  String
+  publicId             String                @unique
+  width                Int?
+  height               Int?
+  format               String?
+  resourceType         String?
+  size                 Int?
   productImages        ProductImage[]
   productVariantImages ProductVariantImage[]
   categories           Category[]

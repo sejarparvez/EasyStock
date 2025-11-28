@@ -7,6 +7,7 @@ import type React from 'react';
 import { useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
+import { UploadImage } from '@/cloudinary/upload-image';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import {
@@ -27,7 +28,7 @@ export function ProfileHeader({ user }: ProfileHeaderProps) {
   const { refetch } = useSession();
   const [isEditing, setIsEditing] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
-  const [isUploadingImage, _setIsUploadingImage] = useState(false);
+  const [isUploadingImage, setIsUploadingImage] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
 
@@ -66,7 +67,7 @@ export function ProfileHeader({ user }: ProfileHeaderProps) {
     setIsEditing(false);
   };
 
-  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
@@ -76,15 +77,30 @@ export function ProfileHeader({ user }: ProfileHeaderProps) {
       return;
     }
 
-    // Validate file size (max 5MB)
+    // Validate file size (max 1MB)
     if (file.size > 1 * 1024 * 1024) {
       toast.error('Image must be smaller than 1MB');
       return;
     }
 
-    // TODO: Implement image upload functionality
-    toast.info('Image upload functionality coming soon');
-    console.log('[v0] Selected file:', file.name, 'Size:', file.size);
+    setIsUploadingImage(true);
+
+    try {
+      const result = await UploadImage(file, 'user-avatars');
+
+      await updateUser({
+        image: `${result.secure_url}|${result.public_id}`,
+      });
+
+      await refetch();
+      toast.success('Profile image updated successfully');
+      router.refresh();
+    } catch (error) {
+      toast.error('Failed to upload image. Please try again.');
+      console.error('[Image Upload Error]', error);
+    } finally {
+      setIsUploadingImage(false);
+    }
   };
 
   const triggerImageUpload = () => {
@@ -99,10 +115,19 @@ export function ProfileHeader({ user }: ProfileHeaderProps) {
       <div className='relative px-6 py-12 flex flex-col items-center text-center space-y-6'>
         {/* Avatar Area */}
         <div className='relative group'>
-          <div className='w-28 h-28 rounded-full bg-linear-to-br from-primary/20 to-accent/20 flex items-center justify-center ring-2 ring-primary/30 shadow-md transition-all duration-300 group-hover:ring-primary/50'>
-            <span className='text-5xl font-bold bg-linear-to-br from-primary to-accent bg-clip-text text-transparent'>
-              {form.watch('name').charAt(0).toUpperCase() || 'U'}
-            </span>
+          <div className='w-28 h-28 rounded-full bg-linear-to-br from-primary/20 to-accent/20 flex items-center justify-center ring-2 ring-primary/30 shadow-md transition-all duration-300 group-hover:ring-primary/50 overflow-hidden'>
+            {user.image ? (
+              // biome-ignore lint/performance/noImgElement: error
+              <img
+                src={user.image}
+                alt={user.name || 'User avatar'}
+                className='h-full w-full object-cover'
+              />
+            ) : (
+              <span className='text-5xl font-bold bg-linear-to-br from-primary to-accent bg-clip-text text-transparent'>
+                {form.watch('name').charAt(0).toUpperCase() || 'U'}
+              </span>
+            )}
           </div>
 
           <div className='absolute bottom-0 right-0 opacity-0 group-hover:opacity-100 transition-opacity duration-200'>

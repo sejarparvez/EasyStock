@@ -8,6 +8,7 @@ interface ProfileActionsProps {
   user: User;
 }
 
+// biome-ignore lint/correctness/noUnusedFunctionParameters: error
 export function ProfileActions({ user }: ProfileActionsProps) {
   return (
     <div className='space-y-4'>
