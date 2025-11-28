@@ -100,12 +100,10 @@ export function LoginForm({
       }
 
       toast.success('Welcome back!', {
-        description: 'Redirecting you to your dashboard...',
+        description: 'Redirecting you to your Profile...',
       });
 
-      setTimeout(() => {
-        router.push('/dashboard');
-      }, 1000);
+      router.push('/dashboard/profile');
     } catch (err) {
       toast.error('Unexpected error', {
         description: 'An unexpected error occurred. Please try again.',

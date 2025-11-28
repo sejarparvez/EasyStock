@@ -12,10 +12,10 @@ export default function Page() {
 
   if (!token) {
     return (
-      <div className='min-h-screen bg-gradient-to-br from-background via-background to-accent/5 flex items-center justify-center px-4 py-12'>
+      <div className='min-h-screen bg-linear-to-br from-background via-background to-accent/5 flex items-center justify-center px-4 py-12'>
         <div className='w-full max-w-md'>
           <div className='relative mb-8'>
-            <div className='absolute inset-0 bg-gradient-to-r from-primary/10 to-accent/10 rounded-2xl blur-xl' />
+            <div className='absolute inset-0 bg-linear-to-r from-primary/10 to-accent/10 rounded-2xl blur-xl' />
 
             <div className='relative space-y-6'>
               <div className='flex items-center gap-3'>
@@ -40,7 +40,7 @@ export default function Page() {
 
               <div className='bg-card rounded-xl border border-border shadow-sm p-6 space-y-4'>
                 <div className='bg-destructive/10 border border-destructive/30 rounded-lg p-4 flex gap-3'>
-                  <Lock className='h-5 w-5 text-destructive flex-shrink-0 mt-0.5' />
+                  <Lock className='h-5 w-5 text-destructive shrink-0 mt-0.5' />
                   <div>
                     <p className='text-sm font-medium text-destructive'>
                       Reset link expired
@@ -70,10 +70,10 @@ export default function Page() {
   }
 
   return (
-    <div className='min-h-screen bg-gradient-to-br from-background via-background to-accent/5 flex items-center justify-center px-4 py-12'>
+    <div className='min-h-screen bg-linear-to-br from-background via-background to-accent/5 flex items-center justify-center px-4 py-12'>
       <div className='w-full max-w-md'>
         <div className='relative mb-8'>
-          <div className='absolute inset-0 bg-gradient-to-r from-primary/10 to-accent/10 rounded-2xl blur-xl' />
+          <div className='absolute inset-0 bg-linear-to-r from-primary/10 to-accent/10 rounded-2xl blur-xl' />
 
           <div className='relative space-y-6'>
             {/* Header with back button */}
@@ -101,7 +101,7 @@ export default function Page() {
             <div className='bg-card rounded-xl border border-border shadow-sm p-6 space-y-4'>
               {/* Info section */}
               <div className='bg-blue-50 dark:bg-blue-950/20 border border-blue-200 dark:border-blue-900/50 rounded-lg p-4 flex gap-3'>
-                <Lock className='h-5 w-5 text-blue-600 dark:text-blue-400 flex-shrink-0 mt-0.5' />
+                <Lock className='h-5 w-5 text-blue-600 dark:text-blue-400 shrink-0 mt-0.5' />
                 <div>
                   <p className='text-sm font-medium text-blue-900 dark:text-blue-200'>
                     Secure password reset

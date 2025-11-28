@@ -66,7 +66,7 @@ export const ResetPasswordForm = ({ token }: ResetPasswordFormProps) => {
         },
         onSuccess: () => {
           toast.success('Password reset successfully!');
-          router.push('/auth/login');
+          router.push('/auth/signin');
         },
       },
     });

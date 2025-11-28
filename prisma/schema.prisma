@@ -29,7 +29,6 @@ model User {
   name          String
   email         String  @unique
   emailVerified Boolean @default(false)
-  image         String?
   role          Role    @default(USER)
   isActive      Boolean @default(true)
   phone         String?
@@ -40,6 +39,9 @@ model User {
 
   // Soft delete
   deletedAt DateTime?
+
+  imageId        String?   @unique
+  image          Image?    @relation(fields: [imageId], references: [id], onDelete: SetNull)
 
   sessions       Session[]
   accounts       Account[]
@@ -187,6 +189,7 @@ model Image {
   resourceType String?
   size         Int? // File size in bytes
 
+  user                 User?
   productImages        ProductImage[]
   productVariantImages ProductVariantImage[]
   categories           Category[]
